@@ -11,12 +11,12 @@ const storage = new MMKV();
  
 export const apiUrl = () => {
 
-  // const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
-  const apiUrl = 'http://192.168.29.11/projects/hindibible/api/';
+  const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
+  // const apiUrl = 'http://192.168.29.11/projects/hindibible/api/';
   // const apiUrl = 'https://developershahrukh.in/demo/tanjeem/jinnuncle/api/';
 
   
-  const commurl = apiUrl;   
+  const commurl = apiUrl;    
   const mainUrl = apiUrl+'user/'; 
   
   

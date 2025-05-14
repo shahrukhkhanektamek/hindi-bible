@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import SplashScreen from 'react-native-splash-screen';
 import { navigate } from './NavigationService';
 
 import AlertMessage from './AlertMessage'; 
@@ -8,7 +7,7 @@ import Loader from './Loader';
 
 import { MMKV } from 'react-native-mmkv';
 const storage = new MMKV();
-
+ 
 
 import { postData, apiUrl } from './api';
 import { View, ImageBackground, StyleSheet } from 'react-native';
@@ -61,19 +60,12 @@ export const GlobalProvider = ({ children }) => {
   {
     return ( 
       <View flex={1}> 
-        <ImageBackground
-          source={require('../../android/app/src/main/res/drawable/launch_screen.png')}
-          style={styles.background}
-        >
-          <View style={styles.content}>
-            {/* Aapka content yahan aayega */}
-          </View>
-        </ImageBackground>
+        
       </View>
     ); 
   }
   else{
-    SplashScreen.hide();
+    
   }
     
     
