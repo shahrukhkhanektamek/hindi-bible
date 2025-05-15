@@ -5,6 +5,7 @@ import GradiantButton from '../../Components/Button/GradientButton.js';
 import { useNavigation } from '@react-navigation/native';
 import BACKGROUND_COLORS from '../../Constants/BackGroundColors.js';
 import Button from '../../Components/Button/Button.js';
+import LogoutButton from '../../Components/LogoutButton.js';
 
 import { GlobalContext } from '../../Components/GlobalContext';
 // import PageLoding from '../../Components/PageLoding';
@@ -77,14 +78,7 @@ const MainScreen = () => {
           fontSize={15}
           onPress={() => navigation.navigate('Home')}
         />
-        <GradiantButton
-          title="Log Out"
-          height="30"
-          width="25%"
-          gradientType="red"
-          borderRadius={5}
-          fontSize={15}
-        />
+        <LogoutButton />
         <GradiantButton
           title="Back"
           height="30"

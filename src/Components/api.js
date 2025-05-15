@@ -11,8 +11,8 @@ const storage = new MMKV();
  
 export const apiUrl = () => {
 
-  // const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
-  const apiUrl = 'http://192.168.29.11/projects/hindibible/api/'; 
+  const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
+  // const apiUrl = 'http://192.168.29.11/projects/hindibible/api/'; 
   // const apiUrl = 'https://developershahrukh.in/demo/tanjeem/jinnuncle/api/';
 
   
@@ -76,7 +76,7 @@ export const apiUrl = () => {
 };
 
 
-
+ 
 export const postData = async (filedata, url, method, navigation, extraData, loaderShowHide=null) => {
 
   // console.log(navigation)
@@ -140,8 +140,8 @@ const responseCheck = async (response, navigation, extraData) => {
         case "login":
           showSuccessMessage(result.message, extraData, 1);
           storeLoginToken(result);
-          // extraData.user.setUsername('');
-          // extraData.user.setPassword('');
+          extraData.setuserDetail(JSON.stringify(result?.data));
+          extraData.setToken(result?.token);
           navigation.reset({
             index: 0,
             routes: [{ name: 'Home' }], 
@@ -151,6 +151,8 @@ const responseCheck = async (response, navigation, extraData) => {
           case "tokenUpdate":
           showSuccessMessage(result.message, extraData, 1);
           storeLoginToken(result);
+          extraData.setuserDetail(JSON.stringify(result?.data));
+          extraData.setToken(result?.token);
           navigation.reset({
             index: 0,
             routes: [{ name: 'Home' }], 
@@ -173,10 +175,13 @@ const responseCheck = async (response, navigation, extraData) => {
           
           case "logout":
           showSuccessMessage(result.message, extraData, 1);
+          extraData.setuserDetail(null);
+          extraData.setToken(null);
           storage.delete('token');
+          storage.delete('user');
           navigation.reset({
             index: 0,
-            routes: [{ name: 'Login' }], 
+            routes: [{ name: 'Home' }], 
           });
           return result;
 
@@ -214,6 +219,8 @@ const responseCheck = async (response, navigation, extraData) => {
         // showSuccessMessage(result.message, extraData, 0);
         storage.delete('token');
         storage.delete('user');
+        extraData.setuserDetail(null);
+        extraData.setToken(null);
         navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }],

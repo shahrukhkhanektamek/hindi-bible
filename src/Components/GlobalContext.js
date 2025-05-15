@@ -25,7 +25,7 @@ export const GlobalProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isLoading, setisLoading] = useState(true);
 
-
+ 
  
    
  
@@ -34,16 +34,16 @@ export const GlobalProvider = ({ children }) => {
   const [alertType, setAlertType] = useState(0);
   const [showLoader, setShowLoader] = useState(false);
   const [showSideBar, setSideBar] = useState(false);
-  
+   
   
   const alert = { showAlert, setShowAlert, alertMessage, setAlertMessage, alertType, setAlertType };
   const sidebar = { showSideBar, setSideBar };
   const loader = { showLoader, setShowLoader }; 
   
-  const extraData = {alert, sidebar, loader, appSetting, userDetail, token};
+  const extraData = {alert, sidebar, loader, appSetting, userDetail, setuserDetail, token, setToken};
   
-
-
+ 
+  
  
   const fetchPickerData = async () => { 
     try {
