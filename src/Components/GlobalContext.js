@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { navigate } from './NavigationService';
+import { useNavigation } from '@react-navigation/native';
 
 import AlertMessage from './AlertMessage'; 
 import Loader from './Loader'; 
@@ -17,9 +17,12 @@ const urls=apiUrl();
 export const GlobalContext = createContext();  
 
 export const GlobalProvider = ({ children }) => {
+
+  const navigation = useNavigation();
   
   const [appSetting, setappSetting] = useState([]);
-  const [userDetail, setuserDetail] = useState([]);
+  const [userDetail, setuserDetail] = useState(null);
+  const [token, setToken] = useState(null);
   const [isLoading, setisLoading] = useState(true);
 
 
@@ -31,21 +34,23 @@ export const GlobalProvider = ({ children }) => {
   const [alertType, setAlertType] = useState(0);
   const [showLoader, setShowLoader] = useState(false);
   const [showSideBar, setSideBar] = useState(false);
-
+  
   
   const alert = { showAlert, setShowAlert, alertMessage, setAlertMessage, alertType, setAlertType };
   const sidebar = { showSideBar, setSideBar };
   const loader = { showLoader, setShowLoader }; 
   
-  const extraData = {alert, sidebar, loader, appSetting, userDetail};
- 
+  const extraData = {alert, sidebar, loader, appSetting, userDetail, token};
+  
+
 
  
   const fetchPickerData = async () => { 
     try {
-      const response = await postData({}, urls.appSetting, "GET", null, extraData);
+      const response = await postData({}, urls.appSetting, "GET", navigation, extraData);
       setappSetting(JSON.parse(storage.getString('appSetting')));
        if(storage.getString('user')) setuserDetail(JSON.parse(storage.getString('user'))); 
+       if(storage.getString('toekn')) setToken(JSON.parse(storage.getString('token'))); 
       setisLoading(false)
     } catch (error) {
       console.error('Error fetching countries:', error);

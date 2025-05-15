@@ -20,8 +20,6 @@ const HomeScreen = () => {
   const appSetting = extraData.appSetting;
   const userDetail = extraData.userDetail;
 
-  
-   
 
   
   const navigation = useNavigation();
@@ -184,7 +182,7 @@ const HomeScreen = () => {
               borderRadius={5}
               fontSize={15}
               fontWeight="500"
-              onPress={() => navigation.navigate('Main')}
+              onPress={() => navigation.navigate('Category')}
               // onPress={() => setIsBeforeRegisterModalVisible(true)}
             />
           </View>

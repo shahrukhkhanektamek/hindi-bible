@@ -13,11 +13,11 @@ const App = () => {
 
   return ( 
     <>
-      <GlobalProvider>
-        <NavigationContainer ref={navigationRef}>
-          <StackNavigation />
-        </NavigationContainer>
-      </GlobalProvider>
+      <NavigationContainer ref={navigationRef}>
+        <GlobalProvider>
+            <StackNavigation />
+        </GlobalProvider>
+      </NavigationContainer>
     </>
   );
 };

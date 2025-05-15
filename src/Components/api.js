@@ -5,14 +5,14 @@ import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs';
 import { MMKV } from 'react-native-mmkv';
 const storage = new MMKV();
-  
-// import { navigate } from './NavigationService';
+
+
 
  
 export const apiUrl = () => {
 
-  const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
-  // const apiUrl = 'http://192.168.29.11/projects/hindibible/api/';
+  // const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
+  const apiUrl = 'http://192.168.29.11/projects/hindibible/api/'; 
   // const apiUrl = 'https://developershahrukh.in/demo/tanjeem/jinnuncle/api/';
 
   
@@ -79,7 +79,7 @@ export const apiUrl = () => {
 
 export const postData = async (filedata, url, method, navigation, extraData, loaderShowHide=null) => {
 
-  // console.log(url)
+  // console.log(navigation)
   // return false;
   const deviceId = await DeviceInfo.getUniqueId();
   let data = '';
@@ -213,9 +213,10 @@ const responseCheck = async (response, navigation, extraData) => {
       else if (result.status === 401) {
         // showSuccessMessage(result.message, extraData, 0);
         storage.delete('token');
+        storage.delete('user');
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Login' }],
+          routes: [{ name: 'Home' }],
         });
       } 
       else if (result.status === 419) {
