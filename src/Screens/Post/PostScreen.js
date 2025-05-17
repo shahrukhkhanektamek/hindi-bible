@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View, RefreshControl } from 'react-native';
+import { ScrollView, StyleSheet, View, RefreshControl, Image, Text } from 'react-native';
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import TopBarPrimary from '../../Components/TopBar/TopBarPrimary.js';
 import GradiantButton from '../../Components/Button/GradientButton.js';
@@ -10,14 +10,19 @@ import SearchInput from '../../Components/Search/SearchInput.js';
 
 
 import { GlobalContext } from '../../Components/GlobalContext';
+import PageLoding from '../../Components/PageLoding.js';
 import { postData, apiUrl } from '../../Components/api';
+import Pdf from '../../Components/Pdf/Pdf.js';
+import AudioPlayer from '../../Components/Audio/AudioPlayer.js';
+import Article from '../../Components/Article/Article.js';
 const urls=apiUrl();
 
 
 const GenesisScreen = ({route}) => {
   const navigation = useNavigation();
-  const {id, name} = route.params;
+  const {id, name, category_type} = route.params;
   const [search, setSearch] = useState('');
+  const [playingId, setPlayingId] = useState(null);
 
   const handleSearch = () => {
     Alert.alert('Search Submitted', `You searched for: "${search}"`);
@@ -43,7 +48,7 @@ const GenesisScreen = ({route}) => {
 
   const fetchData = async () => { 
       try {
-        const response = await postData({id:id}, urls.subSubSubCategory, "GET", null, extraData);
+        const response = await postData({id:id,category_type:category_type}, urls.postList, "GET", null, extraData, 1);
         if(response.status==200)
         {
           setData(response.data);           
@@ -60,11 +65,27 @@ const GenesisScreen = ({route}) => {
     if(isLoading)
     {
       return ( 
-        <View flex={1}> 
-          
-        </View>
+        <PageLoding /> 
       ); 
     }
+
+
+
+
+    const albumImages = [
+    {
+      title: 'CONFERENCE',
+      image: require('../../Assets/videoThumbnail.jpeg'),
+    },
+    {
+      title: 'MEETING',
+      image: require('../../Assets/videoThumbnail.jpeg'),
+    },
+    {
+      title: 'PLAYING',
+      image: require('../../Assets/videoThumbnail.jpeg'),
+    },
+  ];
 
 
 
@@ -131,25 +152,107 @@ const GenesisScreen = ({route}) => {
       <View style={styles.videoContainer}>
         
         
-        <Video
-          thumbnail={require('../../Assets/videoThumbnail.jpeg')}
-          frameSource={require('../../Assets/videoFrame.jpeg')}
-          onPress={() =>
-            navigation.navigate('SingleVideo', {
-              videoSource: require('../../Assets/myvideo.mp4'),
-              thumbnail: require('../../Assets/videoThumbnail.jpeg'),
-              frameSource: require('../../Assets/videoFrame.jpeg'),
-              buttonTitle: 'Genesis Classes',
-              title: 'Video 1 - How to learn coding in simple and easy way...',
-              publishedOn: '15 February 2025',
-              description: 'Exploring the Wonders of Space: A Journey Beyond Earth, Mastering React Native: Build Your First Mobile App, The Secret Life of Ocean Creatures: Underwater Wonders,',
-            })
-          }
-        />
+
+        {data.map((item) => (
+          <React.Fragment key={item.id}>
+            {(item.post_type==1) ? ( 
+               <Video
+                  thumbnail={require('../../Assets/videoThumbnail.jpeg')}
+                  frameSource={require('../../Assets/videoFrame.jpeg')}
+                  onPress={() =>
+                    navigation.navigate('SingleVideo', {
+                      videoSource: require('../../Assets/myvideo.mp4'),
+                      thumbnail: require('../../Assets/videoThumbnail.jpeg'),
+                      frameSource: require('../../Assets/videoFrame.jpeg'),
+                      buttonTitle: 'Genesis Classes',
+                      title: 'Video 1 - How to learn coding in simple and easy way...',
+                      publishedOn: '15 February 2025',
+                      description: 'Exploring the Wonders of Space: A Journey Beyond Earth, Mastering React Native: Build Your First Mobile App, The Secret Life of Ocean Creatures: Underwater Wonders,',
+                    })
+                  }
+                />
+            ) : (item.post_type==2) ? ( 
+              
+              <View style={styles.pdfWrapper}>        
+                  <AudioPlayer
+                      id={item.id}
+                      chapterTitle="Counselling3"
+                      source={require('../../Assets/myaudio.mp3')}
+                      setPlayingId={setPlayingId}
+                      playingId={playingId}
+                    />
+              </View>
+            
+            ) : (item.post_type==3) ? ( 
+              <View style={styles.imageWrapper}>
+                <View style={styles.imageContainer}>
+                  <Image source={require('../../Assets/videoThumbnail.jpeg')} style={styles.image} />
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                    <View style={styles.imageTitleWrapper}>
+                      <Text style={styles.imageTitle}>Album Title</Text>
+                    </View>
+                    <GradiantButton
+                      title="Album"
+                      height="31"
+                      width="25%"
+                      gradientType="orange"
+                      borderRadius={5}
+                      fontSize={15}
+                      onPress={() =>
+                        navigation.navigate('AlbumImage', {
+                          images: {},
+                          initialIndex: 0,
+                        })
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+
+            ) : (item.post_type==4) ? ( 
+              <View style={styles.pdfWrapper}>        
+                  <Pdf
+                    title={`TGC Learning Guide 1`}
+                    fileName="tgc_learning_guide.pdf"
+                    fileSize="2.3 MB"
+                    fileUrl="https://example.com/tgc_learning_guide.pdf"
+                  />                
+              </View>
+
+            ) : (item.post_type==5) ? ( 
+              <Article
+                imageSource={require('../../Assets/videoThumbnail.jpeg')}
+                description="How to learn coding in easy way, If you are using a custom button component, ensure it accepts and applies the style prop correctly."
+                title="If you are using a custom button..."
+                links={[
+                  'https://www.youtube.com',
+                  'https://www.youtube.com',
+                  'https://www.youtube.com',
+                ]}
+              />
+
+            ) : (
+              <Text>None</Text>
+            )}
+          </React.Fragment>
+        ))}
+
+
+        
+       
 
 
         
       </View>
+         
+
+
+        
+          
+        
+
+
+
     </ScrollView>
   );
 };
@@ -159,6 +262,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BACKGROUND_COLORS.primary,
     padding: 10,
+    paddingBottom:200
   },
   topBar: {
     marginTop: 25,
@@ -180,6 +284,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     rowGap: 20,
     marginTop: 20,
+    marginBottom: 20,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -205,6 +310,40 @@ const styles = StyleSheet.create({
     padding: 9,
     backgroundColor: '#eee',
   },
+   mediaContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+   pdfWrapper: {
+    paddingHorizontal: 10,
+    width:"100%"
+  },
+  imageWrapper: {
+    paddingHorizontal: 16,
+    width:"100%"
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+  },
+  imageContainer: {
+    marginBottom: 0,
+    marginTop: 5,
+  },
+  imageTitleWrapper: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    alignSelf: 'flex-start',
+  },
+  imageTitle: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#333',
+  },
+
 });
 
 export default GenesisScreen;

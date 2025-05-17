@@ -8,7 +8,7 @@ import Button from '../../Components/Button/Button.js';
 import LogoutButton from '../../Components/LogoutButton.js';
 
 import { GlobalContext } from '../../Components/GlobalContext';
-// import PageLoding from '../../Components/PageLoding';
+import PageLoding from '../../Components/PageLoding.js';
 import { postData, apiUrl } from '../../Components/api';
 const urls=apiUrl();
 
@@ -37,7 +37,7 @@ const MainScreen = () => {
  
     const fetchData = async () => { 
         try {
-          const response = await postData({}, urls.category, "GET", navigation, extraData);
+          const response = await postData({}, urls.category, "GET", navigation, extraData, 1);
           if(response.status==200)
           {
             setData(response.data);           
@@ -51,13 +51,10 @@ const MainScreen = () => {
       useEffect(() => {
         fetchData()
       },[])
-      if(isLoading)
-      {
-        return ( 
-          <View flex={1}> 
-            {/* <PageLoding /> */}
-          </View>
-        ); 
+      if (isLoading) {
+        return (
+            <PageLoding />          
+        );
       }
 
 
@@ -114,7 +111,7 @@ const MainScreen = () => {
                     borderRadius={5}
                     fontSize={Number(item?.font_size)}
                     fontWeight="500"
-                    onPress={() => navigation.navigate('SubCategory', {id:item.id,name:item.name})}
+                    onPress={() => navigation.navigate('SubCategory', {id:item.id,name:item.name,"category_type":1})}
                   />
                 </View>
             ))}

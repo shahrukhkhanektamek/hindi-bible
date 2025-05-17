@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: BACKGROUND_COLORS.white,
-    padding: 16,
-    marginBottom: 16,
+    padding: 15,
+    marginBottom: -10,
     borderRadius: 5,
   },
   pdfInfo: {

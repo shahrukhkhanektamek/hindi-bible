@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 10,
     marginHorizontal: 16,
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom: 0,
     borderRadius: 5,
   },
   imageContainer: {

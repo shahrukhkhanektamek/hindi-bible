@@ -11,12 +11,16 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import BACKGROUND_COLORS from '../../Constants/BackGroundColors.js';
 import COLORS from '../../Constants/Colors.js';
 
+import Coutries from '../../Components/CountryPicker.js';
+
 const RegisterScreen = () => {
   const navigation = useNavigation();
   const [countryCode, setCountryCode] = useState('+91');
   const [countryName, setCountryName] = useState('India');
   const [mobile, setMobile] = useState('');
   const [imageUri, setImageUri] = useState(null);
+
+  const [selectedCountry, setSelectedCountry] = useState();
 
   const pickImage = () => {
     const options = {
@@ -207,7 +211,7 @@ const RegisterScreen = () => {
     { label: "+682", value: "+682" },
     { label: "+683", value: "+683" },
     { label: "+685", value: "+685" },
-    { label: "+686", value: "+686" },
+    { label: "+686", value: "+686" }, 
     { label: "+687", value: "+687" },
     { label: "+688", value: "+688" },
     { label: "+689", value: "+689" },
@@ -480,9 +484,26 @@ const RegisterScreen = () => {
           <TextInput style={styles.input} />
         </View>
 
+
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Rahne Ka Desh - Residing Country</Text>
           <View style={styles.mobileInputContainer}>
+            
+            <Coutries style={styles.pickerFullWidth} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
+
+            
+          </View>
+        </View>
+
+
+
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Rahne Ka Desh - Residing Country</Text>
+          <View style={styles.mobileInputContainer}>
+
+            <Coutries selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
+
             <View style={styles.pickerWrapperFullWidth}>
               <Picker
                 selectedValue={countryName}

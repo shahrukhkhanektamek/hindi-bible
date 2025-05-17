@@ -11,8 +11,8 @@ const storage = new MMKV();
  
 export const apiUrl = () => {
 
-  const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
-  // const apiUrl = 'http://192.168.29.11/projects/hindibible/api/'; 
+  // const apiUrl = 'http://192.168.1.61/projects/codediffusion/hindibible/api/';
+  const apiUrl = 'http://192.168.29.11/projects/hindibible/api/'; 
   // const apiUrl = 'https://developershahrukh.in/demo/tanjeem/jinnuncle/api/';
 
   
@@ -41,7 +41,8 @@ export const apiUrl = () => {
     "subCategory":`${mainUrl}sub-category`,
     "subSubCategory":`${mainUrl}sub-sub-category`,
     "subSubSubCategory":`${mainUrl}sub-sub-sub-category`,
-    "post":`${mainUrl}post`,
+    "postList":`${mainUrl}post/list`,
+    "postDetail":`${mainUrl}post/detail`,
 
     "appSetting":`${commurl}app-setting`,
 
@@ -55,7 +56,7 @@ export const apiUrl = () => {
     "supportLsit":`${mainUrl}support-list`,
     "supportAdd":`${mainUrl}support-add`,
     "earningList":`${mainUrl}earning-list`,
-    "depositList":`${mainUrl}deposit-list`,
+    "depositList":`${mainUrl}deposit-list`, 
     "depositAdd":`${mainUrl}deposit-add`,
     "depositSubmit":`${mainUrl}deposit-submit`,
     "teamTree":`${mainUrl}team-tree`,

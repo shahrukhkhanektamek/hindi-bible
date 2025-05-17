@@ -7,6 +7,7 @@ import BACKGROUND_COLORS from '../../Constants/BackGroundColors.js';
 import Button from '../../Components/Button/Button.js';
 
 import { GlobalContext } from '../../Components/GlobalContext';
+import PageLoding from '../../Components/PageLoding.js';
 import { postData, apiUrl } from '../../Components/api';
 const urls=apiUrl();
 
@@ -36,7 +37,7 @@ const BibleBooksScreen = ({route}) => {
   
     const fetchData = async () => { 
         try {
-          const response = await postData({id:id}, urls.subSubCategory, "GET", null, extraData);
+          const response = await postData({id:id}, urls.subSubCategory, "GET", null, extraData, 1);
           if(response.status==200)
           {
             setData(response.data);           
@@ -53,9 +54,7 @@ const BibleBooksScreen = ({route}) => {
       if(isLoading)
       {
         return ( 
-          <View flex={1}> 
-            
-          </View>
+          <PageLoding /> 
         ); 
       }
 
@@ -131,7 +130,7 @@ const BibleBooksScreen = ({route}) => {
                     borderRadius={5}
                     fontSize={Number(item?.font_size)}
                     fontWeight="500"
-                    onPress={() => navigation.navigate('SubSubSubCategory', {id:item.id,name:item.name})}
+                    onPress={() => navigation.navigate('SubSubSubCategory', {id:item.id,name:item.name,"category_type":3})}
                   />
                 </View>
             ))}

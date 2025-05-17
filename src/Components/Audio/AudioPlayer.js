@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BACKGROUND_COLORS from '../../Constants/BackGroundColors';
 import Video from 'react-native-video';
 import formatTime from '../../Helper/formatTime';
@@ -56,6 +57,9 @@ const AudioPlayer = ({ id, playingId, setPlayingId, title = 'Unknown Title...', 
 
       <View style={styles.bottomSection}>
         <Text style={styles.chapterTitle}>{chapterTitle}</Text>
+        <TouchableOpacity onPress={() => Linking.openURL(fileUrl)}>
+          <FontAwesome name="download" size={25} color="#555" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -82,7 +86,11 @@ const styles = StyleSheet.create({
     paddingRight: 0,
   },
   bottomSection: {
+    flexDirection:'row',
     marginTop: 16,
+    justifyContent:'space-between',
+    paddingHorizontal:10
+    
   },
   audioTitle: {
     fontSize: 18,

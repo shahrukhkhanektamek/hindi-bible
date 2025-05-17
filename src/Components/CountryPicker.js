@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Modal, ActivityIndicator, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import theme from '../StyleSheet/theme';
+
+
 
 const CountryPicker = ({ selectedCountry, setSelectedCountry }) => {
   const [countries, setCountries] = useState([]);
@@ -58,11 +59,11 @@ const CountryPicker = ({ selectedCountry, setSelectedCountry }) => {
   return (
     <View> 
       {/* ✅ Input Field to Open Modal */}
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => {setModalVisible(true)}} 
-        style={[theme.inputContainer]}>
-        <Icon name="globe" size={20} style={theme.inputIcon} />
+        style={[styles.inputContainer]}>
         <Text>{selectedCountryName || 'Select Country'}</Text>
+        <Icon name="caret-down" size={15} color={'#555'} style={styles.inputIcon} />
       </TouchableOpacity>
 
       {/* ✅ Modal for Searchable Dropdown */}
@@ -113,4 +114,19 @@ const CountryPicker = ({ selectedCountry, setSelectedCountry }) => {
   );
 };
 
+
+const styles = StyleSheet.create({
+inputContainer:{
+  flexDirection:'row',
+  width:"100%",
+  height:50,
+  alignItems:'center',
+  textAlign:'left',
+  justifyContent:'space-between',
+  paddingHorizontal:10
+}
+});
+
 export default CountryPicker;
+
+
